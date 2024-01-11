@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  dotnetweb:
+    container_name: bookstore
+    image: bookstore
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+      target: production
+    ports:
+      - "7007:80"
