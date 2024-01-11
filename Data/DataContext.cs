@@ -26,6 +26,7 @@ namespace BooksApi.Data
                 .WithMany(c => c.StoreBooks)
                 .HasForeignKey(bc => bc.StoreId);
 
+
         }
     }
 }

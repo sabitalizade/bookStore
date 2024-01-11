@@ -1,6 +1,7 @@
 using BooksApi.Data;
 using BooksApi.Interfaces;
 using BooksApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BooksApi.Repository
 {
@@ -32,7 +33,7 @@ namespace BooksApi.Repository
 
         public ICollection<Book> GetBooks()
         {
-            return _context.Books.OrderBy(b => b.Id).ToList();
+            return _context.Books.OrderBy(b => b.Id).Include(b => b.Author).ToList();
         }
 
         public ICollection<Stores> GetStoresByBook(int id)

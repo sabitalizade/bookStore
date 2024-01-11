@@ -48,5 +48,41 @@ namespace BooksApi.Controllers
             }
             return Ok(author);
         }
+
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateAuthor([FromBody] AuthorDto createAuthor)
+        {
+
+            if (createAuthor == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var author = _authorRepository.GetAuthor(createAuthor.FirstName, createAuthor.LastName);
+            if (author != null)
+            {
+                ModelState.AddModelError("", $"Author {createAuthor.FirstName} {createAuthor.LastName} already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var authorObj = _mapper.Map<Author>(createAuthor);
+
+            if (!_authorRepository.CreateAuthor(authorObj))
+            {
+                ModelState.AddModelError("", $"Something went wrong saving {authorObj.FirstName} {authorObj.LastName}");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Author Created");
+
+        }
+
     }
 }

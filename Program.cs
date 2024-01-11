@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using BooksApi;
 using BooksApi.Data;
 using BooksApi.Interfaces;
@@ -14,6 +15,8 @@ builder.Services.AddTransient<Seed>();
 builder.Services.AddControllers();
 // builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
