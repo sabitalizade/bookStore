@@ -1,6 +1,7 @@
 using BooksApi.Data;
 using BooksApi.Interfaces;
 using BooksApi.Models;
+using BookStore.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace BooksApi.Repository
@@ -20,6 +21,25 @@ namespace BooksApi.Repository
             return value;
         }
 
+        public bool CreateBook(Book book, int authorId, int storeId)
+        {
+            System.Console.Write(book);
+
+            // var Author = _context.Author.Where(a => a.Id == authorId).FirstOrDefault();
+
+            // var Store = _context.Stores.Where(s => s.Id == storeId).FirstOrDefault();
+            // var storeBook = new StoreBooks
+            // {
+            //     Books = book,
+            //     Stores = Store
+            // };
+
+
+            // _context.Add(storeBook);
+            // _context.Add(book);
+
+            return Save();
+        }
 
         public Book GetBook(int id)
         {
@@ -39,6 +59,11 @@ namespace BooksApi.Repository
         public ICollection<Stores> GetStoresByBook(int id)
         {
             return _context.StoreBooks.Where(b => b.BookId == id).Select(s => s.Stores).ToList();
+        }
+
+        public bool Save()
+        {
+            return _context.SaveChanges() >= 0 ? true : false;
         }
     }
 }

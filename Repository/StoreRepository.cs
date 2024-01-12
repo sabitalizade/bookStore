@@ -27,5 +27,9 @@ namespace BooksApi.Repository
             return _context.Stores.OrderBy(s => s.Id).ToList();
         }
 
+        public bool StoreExists(int storeId)
+        {
+            return _context.Stores.Any(s => s.Id == storeId);
+        }
     }
 }

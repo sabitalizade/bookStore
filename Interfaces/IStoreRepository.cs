@@ -6,6 +6,7 @@ namespace BooksApi.Interfaces
     {
         ICollection<Stores> GetStores();
         Stores GetStore(int storeId);
+        bool StoreExists(int storeId);
         ICollection<Book> GetBooksByStore(int storeId);
     }
 }

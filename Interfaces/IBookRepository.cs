@@ -1,4 +1,5 @@
 using BooksApi.Models;
+using BookStore.Dtos;
 
 namespace BooksApi.Interfaces
 {
@@ -8,7 +9,9 @@ namespace BooksApi.Interfaces
         Book GetBook(int id);
         Book GetBook(string title);
         bool BookExists(int id);
+        bool CreateBook(Book book, int authorId, int storeId);
         ICollection<Stores> GetStoresByBook(int id);
+        bool Save();
 
     }
 }
