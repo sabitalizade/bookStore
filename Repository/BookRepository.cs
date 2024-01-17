@@ -23,27 +23,27 @@ namespace BooksApi.Repository
 
         public bool CreateBook(Book book, int authorId, int storeId)
         {
-            System.Console.Write(book);
+            var Author = _context.Author.Where(a => a.Id == authorId).FirstOrDefault();
 
-            // var Author = _context.Author.Where(a => a.Id == authorId).FirstOrDefault();
+            var Store = _context.Stores.Where(s => s.Id == storeId).FirstOrDefault();
 
-            // var Store = _context.Stores.Where(s => s.Id == storeId).FirstOrDefault();
-            // var storeBook = new StoreBooks
-            // {
-            //     Books = book,
-            //     Stores = Store
-            // };
+            book.Author = Author;
+            var storeBook = new StoreBooks
+            {
+                Books = book,
+                Stores = Store
+            };
 
 
-            // _context.Add(storeBook);
-            // _context.Add(book);
+            _context.Add(storeBook);
+            _context.Add(book);
 
             return Save();
         }
 
         public Book GetBook(int id)
         {
-            return _context.Books.Where(b => b.Id == id).FirstOrDefault();
+            return _context.Books.Where(b => b.Id == id).Include(a => a.Author).FirstOrDefault();
         }
 
         public Book GetBook(string title)

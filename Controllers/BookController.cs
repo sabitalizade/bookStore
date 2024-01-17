@@ -1,8 +1,7 @@
 using AutoMapper;
 using BooksApi.Interfaces;
 using BooksApi.Models;
-using BookStore.Dtos;
-using Microsoft.AspNetCore.Http.HttpResults;
+using BookStore.Dtos; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace BooksApi.Controllers
@@ -73,7 +72,7 @@ namespace BooksApi.Controllers
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(BookDto))]
         [ProducesResponseType(400)]
-        public IActionResult CreateBook([FromBody] BookCreationDto bookToCreate)
+        public IActionResult CreateBook([FromBody] BookDto bookToCreate)
         {
 
             if (bookToCreate == null)
@@ -81,7 +80,7 @@ namespace BooksApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!_authorRepository.AuthorExists(bookToCreate.Author))
+            if (!_authorRepository.AuthorExists(bookToCreate.AuthorId))
             {
                 ModelState.AddModelError("", "Author doesn't exist!");
                 return BadRequest(ModelState);
@@ -94,11 +93,12 @@ namespace BooksApi.Controllers
             }
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
+            Console.Write("Started............................................", bookToCreate);
             var book = _mapper.Map<Book>(bookToCreate);
-            book.Author = _authorRepository.GetAuthor(bookToCreate.Author);
+            Console.Write("Ended............................................", bookToCreate);
 
-            if (!_bookRepository.CreateBook(book, bookToCreate.Author, bookToCreate.StoreId))
+
+            if (!_bookRepository.CreateBook(book, bookToCreate.AuthorId, bookToCreate.StoreId))
             {
                 ModelState.AddModelError("", $"Something went wrong saving the book " +
                                                 $"{book.Title}");
