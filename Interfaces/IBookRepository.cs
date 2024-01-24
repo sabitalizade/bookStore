@@ -10,6 +10,8 @@ namespace BooksApi.Interfaces
         Book GetBook(string title);
         bool BookExists(int id);
         bool CreateBook(Book book, int authorId, int storeId);
+        bool DeleteBook(Book book);
+
         ICollection<Stores> GetStoresByBook(int id);
         bool Save();
 

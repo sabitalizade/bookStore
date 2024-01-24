@@ -48,10 +48,24 @@ namespace BooksApi.Repository
             return _context.Books.Where(a => a.Author.Id == id).ToList();
         }
 
+        public bool UpdateAuthor(Author author)
+        {
+            _context.Update(author);
+            return Save();
+        }
+
+
+
         public bool Save()
         {
             var save = _context.SaveChanges();
             return save >= 0 ? true : false;
+        }
+
+        public bool DeleteAuthor(Author author)
+        {
+            _context.Remove(author);
+            return Save();
         }
     }
 }

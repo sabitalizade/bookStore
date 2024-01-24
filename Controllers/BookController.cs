@@ -1,7 +1,7 @@
 using AutoMapper;
 using BooksApi.Interfaces;
 using BooksApi.Models;
-using BookStore.Dtos; 
+using BookStore.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BooksApi.Controllers
@@ -108,5 +108,31 @@ namespace BooksApi.Controllers
             return Ok("Success");
         }
 
+        [HttpDelete("{bookId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult DeleteBook(int bookId)
+        {
+            if (!_bookRepository.BookExists(bookId))
+            {
+                return NotFound();
+            }
+
+            var book = _bookRepository.GetBook(bookId);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!_bookRepository.DeleteBook(book))
+            {
+                ModelState.AddModelError("", $"Something went wrong deleting the book " +
+                                                $"{book.Title}");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+        }
     }
 }

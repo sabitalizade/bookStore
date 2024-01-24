@@ -21,6 +21,11 @@ namespace BooksApi.Repository
             return value;
         }
 
+        public bool DeleteBook(Book book)
+        {
+            _context.Remove(book);
+            return Save();
+        }
         public bool CreateBook(Book book, int authorId, int storeId)
         {
             var Author = _context.Author.Where(a => a.Id == authorId).FirstOrDefault();

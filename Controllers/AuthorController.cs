@@ -24,7 +24,6 @@ namespace BooksApi.Controllers
         public IActionResult GetAuthors()
         {
             var authors = _mapper.Map<List<AuthorDto>>(_authorRepository.GetAuthors());
-            // var authors = _authorRepository.GetAuthors();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -48,6 +47,54 @@ namespace BooksApi.Controllers
             }
             return Ok(author);
         }
+
+        [HttpDelete("{authorId}")]
+        [ProducesResponseType(204)] // No Content
+        [ProducesResponseType(400)]
+        public IActionResult DeleteAuthor(int authorId)
+        {
+            if (!_authorRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
+            var author = _authorRepository.GetAuthor(authorId);
+
+            if (!_authorRepository.DeleteAuthor(author))
+            {
+                ModelState.AddModelError("", $"Something went wrong deleting {author.FirstName} {author.LastName}");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("{authorId}")]
+        [ProducesResponseType(204)] // No Content
+        [ProducesResponseType(400)]
+        public IActionResult UpdateAuthor(int authorId, [FromBody] AuthorDto updateAuthor)
+        {
+            if (updateAuthor == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var author = _mapper.Map<Author>(updateAuthor);
+
+            if (!_authorRepository.UpdateAuthor(author))
+            {
+                ModelState.AddModelError("", $"Something went wrong updating {author.FirstName} {author.LastName}");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+        }
+
 
         [HttpPost]
         [ProducesResponseType(201)]
@@ -84,5 +131,23 @@ namespace BooksApi.Controllers
 
         }
 
+        [HttpGet("{authorId}/books")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<BookDto>))]
+        [ProducesResponseType(400)]
+        public IActionResult GetBooksByAuthor(int authorId)
+        {
+
+            if (!_authorRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var books = _mapper.Map<List<BookDto>>(_authorRepository.GetBooksByAuthor(authorId));
+            return Ok(books);
+        }
     }
 }
