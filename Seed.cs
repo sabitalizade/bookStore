@@ -1,9 +1,9 @@
 
 
-using BooksApi.Data;
-using BooksApi.Models;
+using BookStore.Data;
+using BookStore.Models;
 
-namespace BooksApi
+namespace BookStore
 {
     public class Seed
     {

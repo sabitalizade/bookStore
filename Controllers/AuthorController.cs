@@ -1,10 +1,10 @@
 using AutoMapper;
-using BooksApi.Interfaces;
-using BooksApi.Models;
-using BookStore.Dtos;
+using BookStore.Interfaces;
+using BookStore.Models;
+using BookStore.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BooksApi.Controllers
+namespace BookStore.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -31,7 +31,7 @@ namespace BooksApi.Controllers
             return Ok(authors);
         }
         [HttpGet("{authorId}")]
-        [ProducesResponseType(200, Type = typeof(AuthorDto))]
+        [ProducesResponseType(200, Type = typeof(AuthorDetailsDto))]
         [ProducesResponseType(400)]
         public IActionResult GetAuthor(int authorId)
         {
@@ -39,7 +39,7 @@ namespace BooksApi.Controllers
             {
                 return NotFound();
             }
-            var author = _mapper.Map<AuthorDto>(_authorRepository.GetAuthor(authorId));
+            var author = _mapper.Map<AuthorDetailsDto>(_authorRepository.GetAuthor(authorId));
 
             if (!ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace BooksApi.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public IActionResult CreateAuthor([FromBody] AuthorDto createAuthor)
+        public IActionResult CreateAuthor([FromBody] AuthorDetailsDto createAuthor)
         {
 
             if (createAuthor == null)

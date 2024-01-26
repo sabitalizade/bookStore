@@ -1,7 +1,7 @@
-using BooksApi.Models;
+using BookStore.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BooksApi.Data
+namespace BookStore.Data
 {
     public class DataContext : DbContext
     {
@@ -10,6 +10,8 @@ namespace BooksApi.Data
         public DbSet<Author> Author { get; set; }
         public DbSet<StoreBooks> StoreBooks { get; set; }
         public DbSet<Stores> Stores { get; set; }
+
+        public DbSet<Users> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

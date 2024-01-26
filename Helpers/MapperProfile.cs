@@ -1,6 +1,6 @@
 using AutoMapper;
-using BooksApi.Models;
-using BookStore.Dtos;
+using BookStore.Models;
+using BookStore.Dto;
 
 namespace BookStore.Helpers
 {
@@ -10,14 +10,14 @@ namespace BookStore.Helpers
         {
             CreateMap<BookDto, Book>()
             .ForMember(dest => dest.Author, opt => opt.Ignore())
-            .ForMember(dest => dest.StoreBooks, opt => opt.Ignore());
-            CreateMap<Book, BookDto>();
+            .ForMember(dest => dest.StoreBooks, opt => opt.Ignore()).ReverseMap();
             // .ForMember(dest => dest.Author, opt => opt.Ignore());
             // .ForMember(dest => dest.AuthorId, opt => opt.MapFrom(src => src.Author));
             CreateMap<Stores, StoreDto>();
             CreateMap<StoreDto, Stores>();
-            CreateMap<Author, AuthorDto>();
-            CreateMap<AuthorDto, Author>();
+            CreateMap<Author, AuthorDto>().ReverseMap();
+            CreateMap<Author, AuthorDetailsDto>().ReverseMap();
+            CreateMap<Users, UserDto>().ReverseMap();
 
         }
     }

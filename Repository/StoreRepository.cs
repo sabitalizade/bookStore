@@ -1,8 +1,8 @@
-using BooksApi.Data;
-using BooksApi.Interfaces;
-using BooksApi.Models;
+using BookStore.Data;
+using BookStore.Interfaces;
+using BookStore.Models;
 
-namespace BooksApi.Repository
+namespace BookStore.Repository
 {
     public class StoreRepository : IStoreRepository
     {

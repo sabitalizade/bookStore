@@ -1,10 +1,10 @@
-using BooksApi.Data;
-using BooksApi.Interfaces;
-using BooksApi.Models;
-using BookStore.Dtos;
+using BookStore.Data;
+using BookStore.Interfaces;
+using BookStore.Models;
+using BookStore.Dto;
 using Microsoft.EntityFrameworkCore;
 
-namespace BooksApi.Repository
+namespace BookStore.Repository
 {
     public class BookRepository : IBookRepository
     {

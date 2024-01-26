@@ -1,9 +1,9 @@
-using BooksApi.Data;
-using BooksApi.Interfaces;
-using BooksApi.Models;
+using BookStore.Data;
+using BookStore.Interfaces;
+using BookStore.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BooksApi.Repository
+namespace BookStore.Repository
 {
     public class AuthorRepository : IAuthorRepository
     {
@@ -28,7 +28,7 @@ namespace BooksApi.Repository
 
         public Author GetAuthor(int id)
         {
-            return _context.Author.Where(a => a.Id == id).FirstOrDefault();
+            return _context.Author.Where(a => a.Id == id).Include(a => a.Books).FirstOrDefault();
         }
 
 

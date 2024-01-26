@@ -1,6 +1,6 @@
-using BooksApi.Models;
+using BookStore.Models;
 
-namespace BooksApi.Interfaces
+namespace BookStore.Interfaces
 {
     public interface IAuthorRepository
     {

@@ -1,11 +1,9 @@
-using BooksApi.Models;
+using BookStore.Models;
 
-namespace BookStore.Dtos
+namespace BookStore.Dto
 {
     public class BookDto
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
+    {         public string Title { get; set; }
         public string? Genre { get; set; }
         public int? Price { get; set; }
         public int AuthorId { get; set; }  // Added AuthorId property

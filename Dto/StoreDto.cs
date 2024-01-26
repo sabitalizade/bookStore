@@ -1,8 +1,7 @@
-namespace BookStore.Dtos
+namespace BookStore.Dto
 {
     public class StoreDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

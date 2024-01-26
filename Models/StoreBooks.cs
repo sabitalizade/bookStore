@@ -1,4 +1,4 @@
-namespace BooksApi.Models
+namespace BookStore.Models
 {
 
     public class StoreBooks
@@ -7,7 +7,7 @@ namespace BooksApi.Models
         public int StoreId { get; set; }
         public int BookId { get; set; }
 
-        public Stores Stores { get; set; }
-        public Book Books { get; set; }
+        public Stores Stores { get; set; }= null!;
+        public Book Books { get; set; }= null!;
     }
 }

@@ -1,10 +1,10 @@
 using AutoMapper;
-using BooksApi.Interfaces;
-using BooksApi.Models;
-using BookStore.Dtos;
+using BookStore.Interfaces;
+using BookStore.Models;
+using BookStore.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BooksApi.Controllers
+namespace BookStore.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

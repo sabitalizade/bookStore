@@ -1,7 +1,7 @@
-using BooksApi.Models;
-using BookStore.Dtos;
+using BookStore.Models;
+using BookStore.Dto;
 
-namespace BooksApi.Interfaces
+namespace BookStore.Interfaces
 {
     public interface IBookRepository
     {

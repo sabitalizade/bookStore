@@ -1,10 +1,11 @@
 using System.Text.Json.Serialization;
-using BooksApi;
-using BooksApi.Data;
-using BooksApi.Interfaces;
-using BooksApi.Repository;
-using BookStore.Helpers;
+using BookStore;
+using BookStore.Data;
+using BookStore.Interfaces;
+using BookStore.Repository;
 using Microsoft.EntityFrameworkCore;
+using Bookshop.Repository;
+using Bookshop.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

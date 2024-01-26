@@ -1,4 +1,4 @@
-namespace BookStore.Dtos
+namespace BookStore.Dto
 {
     public class BookCreationDto :BookDto
     {
